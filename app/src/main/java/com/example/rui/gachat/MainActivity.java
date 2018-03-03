@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public static SQLiteDatabase db = null;
     String[] aas = {"妙不可言", "雅月", "单行轨道", "风未末炎", "枫叶", "搁浅的鱼", "花好月圆", "古希腊女战士", "妙不可言", "雅月", "单行轨道", "风未末炎", "枫叶", "搁浅的鱼", "花好月圆", "古希腊女战士",
             "妙不可言", "雅月", "单行轨道", "风未末炎", "枫叶", "搁浅的鱼", "花好月圆", "古希腊女战士"};
-    List<String> kkl=new ArrayList<String>();
+    List<String> kkl=new ArrayList<>();
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,10 +63,11 @@ public class MainActivity extends AppCompatActivity {
 //        db=databaseHelper.getReadableDatabase();
         getMyList();
         initUI();
+        //由于添加好友功能未开发，所有上传假的好友列表数据到Bmob数据库
 //        upshuju();
-//zhuce();
+//        zhuce();
     }
-
+//TODO 添加数据到好友列表
     private void upshuju() {
         String [] iy={"http://bmob-cdn-15945.b0.upaiyun.com/2017/12/28/9dc5f71040aa1ce780cd9aaf0d601d9b.jpg",
                       "http://bmob-cdn-15945.b0.upaiyun.com/2017/12/28/b24d01ca409485f280f90d6d4f628826.jpg",
@@ -76,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                       "http://bmob-cdn-15945.b0.upaiyun.com/2017/12/28/f8a575e640edc65980aad3844bab275f.jpg",
                       "http://bmob-cdn-15945.b0.upaiyun.com/2017/12/28/649b056a40e7cc8c804180844d680897.jpg",
                       "http://bmob-cdn-15945.b0.upaiyun.com/2017/12/28/8097c0644082347480626af6718032d5.jpg"};
-        List<FriendList> msglist2 = new ArrayList<FriendList>();
-        List<FriendList> haoyou = new ArrayList<FriendList>();
+        List<FriendList> msglist2 = new ArrayList<>();
+        List<FriendList> haoyou = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             FriendList pp = new FriendList();
             String bb = "iiii" + i;
@@ -108,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+        //TODO 批量上传本地头像图片到Bmob数据库，被弃用。。哈哈
     public void shangchuan() {
         //详细示例可查看BmobExample工程中BmobFileActivity类
         final String[] fileaa = new String[8];
-        for (int j = 0; j < j; j++) {
+        for (int j = 0; j < fileaa.length; j++) {
             fileaa[j] = "/storage/emulated/0/Quark/Download/img0" +j + ".jpg";}
 
             BmobFile.uploadBatch(fileaa, new UploadBatchListener() {
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
     }
-
+        //
     public void zhuce() {
 
 
@@ -175,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         myUser = (MyUser) intent.getSerializableExtra("myuser");
         if (intent.getBooleanExtra("newuser", false)) {
-            jiahaoyou = new ArrayList<FriendList>();
-            msglist = new ArrayList<FriendList>();
+            jiahaoyou = new ArrayList<>();
+            msglist = new ArrayList<>();
         } else {
 //        Friend dh = (Friend) intent.getSerializableExtra("dd");
             jiahaoyou = (ArrayList<FriendList>) intent.getSerializableExtra("friendlist");
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.vp_main);
+        final ViewPager viewPager = findViewById(R.id.vp_main);
         viewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
@@ -230,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                     final View view = LayoutInflater.from(
                             getBaseContext()).inflate(R.layout.msglist, null, false);
 
-                    final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.msglist);
+                    final RecyclerView recyclerView = view.findViewById(R.id.msglist);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(
                                     getBaseContext(), LinearLayoutManager.VERTICAL, false
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     final View view = LayoutInflater.from(
                             getBaseContext()).inflate(R.layout.friendslist, null, false);
 
-                    final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.friendslist);
+                    final RecyclerView recyclerView = view.findViewById(R.id.friendslist);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(
                                     getBaseContext(), LinearLayoutManager.VERTICAL, false
@@ -259,9 +260,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     final View view = LayoutInflater.from(
                             getBaseContext()).inflate(R.layout.myselfview, null, false);
-                    ImageView usericon = (ImageView) view.findViewById(R.id.usericon);
+                    ImageView usericon =  view.findViewById(R.id.usericon);
                     Uri uri;
                     if (myUser.getNick_URL_NET()==null){
+                        //如果头像为空或者获取头像错误，则用固定头像代替
                         uri = Uri.parse("http://bmob-cdn-15945.b0.upaiyun.com/2018/01/31/fc6d41ab40b00e568074bf5ffb812a57.png");
                     }
                     else {
@@ -291,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
         final String[] colors = getResources().getStringArray(R.array.default_preview);
 
-        final NavigationTabBar navigationTabBar = (NavigationTabBar) findViewById(R.id.ntb_horizontal);
+        final NavigationTabBar navigationTabBar =  findViewById(R.id.ntb_horizontal);
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
         models.add(
                 new NavigationTabBar.Model.Builder(
@@ -377,7 +379,7 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, final int position) {
 
             if (p == 0) {
-                String msg = (String) msglist.get(position).getFriendName();
+                String msg = msglist.get(position).getFriendName();
                 holder.msgtxt.setText(msg);
 //                Uri uri = Uri.parse(msglist.get(position).getFriendIcon());
                 Glide.with(MainActivity.this)
@@ -387,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                         .into(holder.msgicon);
 
             } else if (p == 1) {
-                String friend = (String) jiahaoyou.get(position).getFriendName();
+                String friend =  jiahaoyou.get(position).getFriendName();
                 Uri uri = Uri.parse(jiahaoyou.get(position).getFriendIcon());
                 Glide.with(MainActivity.this)
                         .load(uri)
@@ -416,17 +418,17 @@ public class MainActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             protected static final String TAG = "ReceiverHolder";
-            public ImageView msgicon;
-            public ImageView friendicon;
-            public TextView msgtxt;
-            public TextView friendtxt;
+             ImageView msgicon;
+             ImageView friendicon;
+             TextView msgtxt;
+             TextView friendtxt;
 
-            public ViewHolder(final View itemView) {
+             ViewHolder(final View itemView) {
                 super(itemView);
-                msgicon = (ImageView) itemView.findViewById(R.id.msgicon);
-                msgtxt = (TextView) itemView.findViewById(R.id.txt_msg_item_list);
-                friendicon = (ImageView) itemView.findViewById(R.id.friendicon);
-                friendtxt = (TextView) itemView.findViewById(R.id.txt_friend_item_list);
+                msgicon =  itemView.findViewById(R.id.msgicon);
+                msgtxt =  itemView.findViewById(R.id.txt_msg_item_list);
+                friendicon =  itemView.findViewById(R.id.friendicon);
+                friendtxt = itemView.findViewById(R.id.txt_friend_item_list);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
