@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/action_text_color_normal"
+        android:paddingTop="2dp"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_margin="5dp"
+            android:id="@+id/friendicon"
+            android:src="@mipmap/ic_launcher"
+            />
+        <TextView
+            android:id="@+id/txt_friend_item_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:background="@drawable/bg_round_rect"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:text="Navigation"
+            android:textColor="#9b92b3"
+            android:textStyle="bold"
+            android:textSize="35dp"
+            android:layout_weight="2"
+            />
+    </LinearLayout>
+
+
+</FrameLayout>
